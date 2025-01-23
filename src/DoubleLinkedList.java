@@ -22,7 +22,6 @@ public class DoubleLinkedList<E> {
     private Node<E> trailer;
     private int size = 0;
 
-    /** Constructs a new empty list. */
     public DoubleLinkedList() {
         header = new Node<>(null, null, null);
         trailer = new Node<>(null, header, null);
@@ -31,7 +30,7 @@ public class DoubleLinkedList<E> {
 
     public int size() { return size; }
 
-    /** Tests whether the linked list is empty. */
+
     public boolean isEmpty() { return size == 0; }
 
     public E first() {
@@ -79,5 +78,20 @@ public class DoubleLinkedList<E> {
         successor.setPrev(predecessor);
         size--;
         return node.getElement();
+    }
+
+    public void displayForward(){
+        Node<E> current = header;
+        while(current.getNext().getNext() != null){
+                System.out.println(current.getNext().getElement());
+            current = current.getNext();
+        }
+    }
+    public void displayBackward(){
+        Node<E> current = trailer;
+        while(current.getPrev().getPrev() != null){
+            System.out.println(current.getPrev().getElement());
+            current = current.getPrev();
+        }
     }
 }
