@@ -30,7 +30,6 @@ public class DoubleLinkedList<E> {
 
     public int size() { return size; }
 
-
     public boolean isEmpty() { return size == 0; }
 
     public E first() {
@@ -87,6 +86,7 @@ public class DoubleLinkedList<E> {
             current = current.getNext();
         }
     }
+
     public void displayBackward(){
         Node<E> current = trailer;
         while(current.getPrev().getPrev() != null){
@@ -94,4 +94,58 @@ public class DoubleLinkedList<E> {
             current = current.getPrev();
         }
     }
+    public void replace(int index, E e){
+        Node <E> current = header;
+        for (int i = 0; i < size; i++) {
+                if(i == index){
+                    addBetween(e, current.getPrev(), current.getNext());
+                    break;
+                }
+                current = current.getNext();
+        }
+    }
+
+    public void insert(int index, E e) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        Node<E> current = header;
+        for (int i = 0; i < index; i++) {
+            current = current.getNext();
+        }
+        addBetween(e, current.getPrev(), current);
+        size++;
+    }
+
+    public void delete(int index){
+        if(index < 0 || index > size) {
+            System.out.println("Out of range");
+        }else if(index == 0){
+            removeFirst();
+        }
+        else{
+            Node<E> current = header;
+            for (int i = 0; i < index; i++) {
+                current = current.getNext();
+            }
+            remove(current);
+            size--;
+        }
+    }
+
+    public boolean isPlaindrome(){
+        Node<E> first = header.getNext();
+        Node<E> last = trailer.getPrev();
+        boolean check = true;
+        while (first != null && last != null && first != last && first.getPrev() != last){
+            if(!first.getElement().equals(last.getElement())){
+                check = false;
+                break;
+            }
+            first = first.getNext();
+            last = last.getPrev();
+        }
+        return check;
+    }
+
 }
